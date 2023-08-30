@@ -23,6 +23,8 @@ SOFTWARE.
 
 **/
 
+/** FOR REFERENCE, this is the old entity_type_slug file */
+
 import Entity from "@/backend/models/core/Entity";
 import EntityType from "@/backend/models/core/EntityType";
 import { withSession } from "@klaudsol/commons/lib/Session";
@@ -56,6 +58,8 @@ async function get(req, res) {
         queries,
     );
     const rawEntityType = await EntityType.find({ slug: entity_type_slug });
+    if (rawEntityType.length === 0) return res.status(NOT_FOUND).json({});
+
     const isSingleType = (rawEntityType[0].entity_type_variant === 'singleton');
 
     const initialFormat = {
